@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priyanka Patil — Data Analytics Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --terra:    #C4622D;
+    --terra-lt: #E8855A;
+    --cream:    #FAF6F0;
+    --warm-white: #FFFDF9;
+    --sand:     #EDE3D3;
+    --ochre:    #D4A853;
+    --forest:   #3A5A40;
+    --ink:      #1C1713;
+    --ink-mid:  #4A3F35;
+    --muted:    #8A7B6F;
+    --card-bg:  #FFFFFF;
+    --border:   #E4D9CC;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(250, 246, 240, 0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s;
+  }
+
+  nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+
+  .nav-logo {
+    font-family: 'Lora', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--terra);
+    letter-spacing: -0.01em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--ink-mid);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0; right: 100%;
+    height: 1.5px;
+    background: var(--terra);
+    transition: right 0.25s ease;
+  }
+
+  .nav-links a:hover { color: var(--terra); }
+  .nav-links a:hover::after { right: 0; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    gap: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.18;
+    pointer-events: none;
+  }
+  .blob-1 { width: 600px; height: 600px; background: var(--terra); top: -100px; right: -100px; animation: blobFloat 10s ease-in-out infinite; }
+  .blob-2 { width: 400px; height: 400px; background: var(--ochre); bottom: -50px; left: 200px; animation: blobFloat 13s ease-in-out infinite reverse; }
+  .blob-3 { width: 300px; height: 300px; background: var(--forest); top: 40%; left: -80px; animation: blobFloat 8s ease-in-out infinite 2s; }
+
+  @keyframes blobFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(20px, -30px) scale(1.04); }
+    66% { transform: translate(-15px, 20px) scale(0.97); }
+  }
+
+  .hero-text { position: relative; z-index: 2; }
+
+  .hero-tag {
+    display: inline-block;
+    background: var(--sand);
+    color: var(--terra);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border);
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-name {
+    font-family: 'Lora', serif;
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+    animation: fadeUp 0.7s ease 0.1s both;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--terra);
+  }
+
+  .hero-title {
+    font-family: 'Lora', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 1.8rem;
+    animation: fadeUp 0.7s ease 0.2s both;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--ink-mid);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.7s ease 0.3s both;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.7s ease 0.4s both;
+  }
+
+  .btn-primary {
+    background: var(--terra);
+    color: #fff;
+    padding: 0.85rem 2rem;
+    border-radius: 3rem;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(196,98,45,0.3);
+  }
+
+  .btn-primary:hover {
+    background: var(--terra-lt);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(196,98,45,0.35);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--ink-mid);
+    padding: 0.85rem 2rem;
+    border-radius: 3rem;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1.5px solid var(--border);
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--terra);
+    color: var(--terra);
+    transform: translateY(-2px);
+  }
+
+  /* Hero Visual */
+  .hero-visual {
+    position: relative;
+    z-index: 2;
+    animation: fadeUp 0.9s ease 0.3s both;
+  }
+
+  .hero-card-stack {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    margin-left: auto;
+  }
+
+  .hero-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+  }
+
+  .hero-card-back {
+    position: absolute;
+    inset: 0;
+    background: var(--sand);
+    border-radius: 20px;
+    transform: rotate(-4deg) translate(-8px, 10px);
+    z-index: -1;
+    border: 1px solid var(--border);
+  }
+
+  .hero-card-back-2 {
+    position: absolute;
+    inset: 0;
+    background: var(--terra);
+    opacity: 0.12;
+    border-radius: 20px;
+    transform: rotate(3deg) translate(6px, 14px);
+    z-index: -2;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-box {
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid var(--border);
+  }
+
+  .stat-num {
+    font-family: 'Lora', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--terra);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+    font-weight: 400;
+  }
+
+  .skill-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .chip {
+    background: var(--sand);
+    color: var(--ink-mid);
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 0.35rem 0.8rem;
+    border-radius: 2rem;
+    border: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .chip.green { background: #E6F2E8; color: var(--forest); border-color: #C5DEC9; }
+  .chip.orange { background: #FDEEE5; color: var(--terra); border-color: #F5CDB8; }
+
+  /* ── SECTION BASE ── */
+  section {
+    padding: 6rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--terra);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 2px;
+    background: var(--terra);
+    border-radius: 2px;
+  }
+
+  .section-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .section-title em { font-style: italic; color: var(--terra); }
+
+  .section-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.7;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--warm-white);
+    max-width: 100%;
+    padding: 6rem 0;
+  }
+
+  .about-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .about-photo-wrap {
+    position: relative;
+  }
+
+  .about-photo {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: var(--sand);
+    border-radius: 24px 4px 24px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .about-photo-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .photo-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+  }
+
+  .about-deco {
+    position: absolute;
+    bottom: -16px;
+    right: -16px;
+    width: 120px;
+    height: 120px;
+    border: 3px solid var(--terra);
+    border-radius: 4px 20px 4px 20px;
+    opacity: 0.25;
+  }
+
+  .about-badge {
+    position: absolute;
+    top: -16px;
+    left: -16px;
+    background: var(--terra);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.5rem 1.1rem;
+    border-radius: 2rem;
+    box-shadow: 0 4px 12px rgba(196,98,45,0.3);
+    white-space: nowrap;
+  }
+
+  .about-text .section-title { margin-top: 1.2rem; }
+
+  .about-body {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--ink-mid);
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .fact {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .fact-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--sand);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+  }
+
+  .fact-label { font-size: 0.78rem; color: var(--muted); }
+  .fact-value { font-size: 0.92rem; color: var(--ink); font-weight: 500; }
+
+  /* ── PROJECTS ── */
+  #projects { padding-top: 6rem; }
+
+  .projects-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+  }
+
+  .project-card.featured {
+    grid-column: span 2;
+  }
+
+  .project-visual {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-visual.v1 { background: linear-gradient(135deg, #FDEEE5, #F5CDB8); }
+  .project-visual.v2 { background: linear-gradient(135deg, #E6F2E8, #C5DEC9); }
+  .project-visual.v3 { background: linear-gradient(135deg, #FDF6E3, #F0E0B0); }
+  .project-visual.v4 { background: linear-gradient(135deg, #EEF0F8, #D0D5EE); }
+
+  .project-visual-label {
+    position: absolute;
+    bottom: 12px;
+    right: 14px;
+    font-size: 0.72rem;
+    font-family: 'DM Mono', monospace;
+    color: rgba(0,0,0,0.4);
+    font-weight: 500;
+  }
+
+  .project-body {
+    padding: 1.5rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .tag {
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 0.25rem 0.65rem;
+    border-radius: 2rem;
+    background: var(--sand);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .tag.highlight { background: #FDEEE5; color: var(--terra); border-color: #F5CDB8; }
+
+  .project-title {
+    font-family: 'Lora', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: var(--ink-mid);
+    margin-bottom: 1.2rem;
+  }
+
+  .project-metric {
+    font-size: 0.82rem;
+    color: var(--forest);
+    font-weight: 500;
+    background: #E6F2E8;
+    padding: 0.3rem 0.75rem;
+    border-radius: 2rem;
+    display: inline-block;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--terra);
+    font-weight: 500;
+    text-decoration: none;
+    margin-top: 0.8rem;
+    transition: gap 0.2s;
+  }
+
+  .project-link:hover { gap: 0.7rem; }
+
+  /* ── PLACEHOLDER HINT ── */
+  .placeholder-hint {
+    background: var(--sand);
+    border: 2px dashed var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .placeholder-hint strong { color: var(--terra); }
+
+  /* ── SKILLS ── */
+  #skills {
+    background: var(--ink);
+    max-width: 100%;
+    padding: 6rem 0;
+  }
+
+  .skills-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 4rem;
+  }
+
+  .skills-inner .section-label { color: var(--ochre); }
+  .skills-inner .section-label::before { background: var(--ochre); }
+  .skills-inner .section-title { color: var(--cream); }
+  .skills-inner .section-title em { color: var(--terra-lt); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .skill-category {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: background 0.2s;
+  }
+
+  .skill-category:hover { background: rgba(255,255,255,0.08); }
+
+  .skill-cat-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .skill-cat-title {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 1rem;
+  }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .skill-list li {
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.6);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .skill-list li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    background: var(--terra);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .skill-bar-wrap {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  .skill-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .skill-bar-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.7);
+    font-weight: 500;
+  }
+
+  .skill-bar-track {
+    height: 6px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .skill-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--terra), var(--ochre));
+    transform-origin: left;
+    animation: barGrow 1.2s cubic-bezier(0.23, 1, 0.32, 1) both;
+    animation-play-state: paused;
+  }
+
+  .skill-bar-fill.animated { animation-play-state: running; }
+
+  @keyframes barGrow {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    padding: 6rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .contact-intro .section-title { margin-top: 0.8rem; }
+
+  .contact-body {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--ink-mid);
+    margin-top: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    text-decoration: none;
+    color: var(--ink-mid);
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .contact-link:hover {
+    border-color: var(--terra);
+    transform: translateX(4px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+    color: var(--terra);
+  }
+
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .ci-li { background: #E8F0F8; }
+  .ci-em { background: #FDEEE5; }
+  .ci-cv { background: #E6F2E8; }
+
+  .contact-form-wrap {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 2.5rem;
+  }
+
+  .form-title {
+    font-family: 'Lora', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 1.8rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.2rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.02em;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--ink);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    resize: none;
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--terra);
+    box-shadow: 0 0 0 3px rgba(196,98,45,0.1);
+  }
+
+  .form-group textarea { height: 110px; }
+
+  .form-submit {
+    width: 100%;
+    padding: 0.9rem;
+    background: var(--terra);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .form-submit:hover {
+    background: var(--terra-lt);
+    transform: translateY(-1px);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 2rem 4rem;
+    font-size: 0.85rem;
+  }
+
+  footer span { color: var(--terra); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Fallback: if JS doesn't fire, never leave content invisible */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    #hero { grid-template-columns: 1fr; padding: 7rem 2rem 3rem; }
+    .hero-visual { display: none; }
+    .about-inner { grid-template-columns: 1fr; gap: 2.5rem; padding: 0 2rem; }
+    .about-photo-wrap { max-width: 300px; }
+    section { padding: 4rem 2rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: span 1; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .skill-bar-wrap { grid-template-columns: 1fr; }
+    #contact { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 2rem; }
+    .skills-inner { padding: 0 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">Priyanka Patil</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-blob blob-1"></div>
+  <div class="hero-blob blob-2"></div>
+  <div class="hero-blob blob-3"></div>
+
+  <div class="hero-text">
+    <div class="hero-tag">📍 Ireland — ✨ The right opportunity is just one conversation away</div>
+    <h1 class="hero-name">Hi, I'm <em>Priyanka Patil</em></h1>
+    <p class="hero-title">MSc Data Analytics · Dundalk Institute of Technology</p>
+    <p class="hero-desc">
+      Data Analytics graduate turning complex data into clear, actionable decisions. I automate, visualise, and translate — so the right people always have the right insight at the right time.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View My Work →</a>
+      <a href="/cdn-cgi/l/email-protection#0272706b7b63707263766b6e333a323b42656f636b6e2c616d6f" class="btn-outline">Get In Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card-stack">
+      <div class="hero-card-back-2"></div>
+      <div class="hero-card-back"></div>
+      <div class="hero-card">
+        <div class="stat-grid">
+          <div class="stat-box">
+            <div class="stat-num">90%</div>
+            <div class="stat-label">Reporting time saved</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">648K</div>
+            <div class="stat-label">Flight records analysed</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">22%</div>
+            <div class="stat-label">ML efficiency gain</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Clinical projects deployed</div>
+          </div>
+        </div>
+        <div class="skill-chips">
+          <span class="chip orange">Python</span>
+          <span class="chip">SQL</span>
+          <span class="chip green">Tableau</span>
+          <span class="chip orange">Power BI</span>
+          <span class="chip green">Excel VBA</span>
+          <span class="chip">AI Tools</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div id="about">
+  <div class="about-inner">
+    <div class="about-photo-wrap reveal">
+      <div class="about-badge">🎓 MSc Graduate · DkIT</div>
+      <div class="about-photo">
+        <img src="DSC_0824.jpeg" style="width:100%; height:100%; object-fit:cover; border-radius:24px 4px 24px 4px;">
+      </div>
+      <div class="about-deco"></div>
+    </div>
+
+    <div class="about-text reveal">
+      <div class="section-label">About Me</div>
+      <h2 class="section-title">Data that <em>decides</em></h2>
+      <p class="about-body">
+        I'm Priyanka Patil — a Data Analytics graduate from Dundalk Institute of Technology, Ireland. With hands-on experience across SQL, Python, Advanced Excel (VBA & macros), Tableau, and Power BI, I specialise in transforming raw, multi-source datasets into executive-ready insights that drive real decisions.
+      </p>
+      <p class="about-body" style="margin-top:0;">
+        I've automated reporting pipelines that cut turnaround time by 90%, built KPI dashboards for senior stakeholders, and translated complex financial analysis into clear narratives for non-technical audiences. I'm now channelling these skills into roles where data meets strategy — and where the numbers always tell a story worth acting on.
+      </p>
+
+      <div class="about-facts">
+        <div class="fact">
+          <div class="fact-icon">🎓</div>
+          <div>
+            <div class="fact-label">Degree</div>
+            <div class="fact-value">MSc Data Analytics · DkIT</div>
+          </div>
+        </div>
+        <div class="fact">
+          <div class="fact-icon">📍</div>
+          <div>
+            <div class="fact-label">Location</div>
+            <div class="fact-value">Ireland</div>
+          </div>
+        </div>
+        <div class="fact">
+          <div class="fact-icon">💼</div>
+          <div>
+            <div class="fact-label">Looking for</div>
+            <div class="fact-value">Data & Analytics Roles</div>
+          </div>
+        </div>
+        <div class="fact">
+          <div class="fact-icon">⚡</div>
+          <div>
+            <div class="fact-label">Superpower</div>
+            <div class="fact-value">Automating the unscalable</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="projects-header reveal">
+    <div>
+      <div class="section-label">Key Projects</div>
+      <h2 class="section-title">What I've <em>built</em></h2>
+      <p class="section-sub">Academic and personal projects showcasing analytical depth and technical range.</p>
+    </div>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- Project 1 — Featured -->
+    <div class="project-card featured reveal">
+      <div class="project-visual v1">
+        ✈️
+        <span class="project-visual-label">Python · Tableau · ANOVA</span>
+      </div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag highlight">Featured Project</span>
+          <span class="tag">Python</span>
+          <span class="tag">Tableau</span>
+          <span class="tag">Statistical Analysis</span>
+        </div>
+        <div class="project-title">European Air Traffic Analysis — COVID-19 Financial Impact</div>
+        <p class="project-desc">
+          Analysed 648,234 flight records to quantify COVID-19's operational and financial impact on European aviation using ANOVA, t-tests, and regression modelling in Python. Presented findings through interactive Tableau dashboards highlighting statistically significant recovery trends.
+        </p>
+        <span class="project-metric">📊 648,234 records · Statistically significant recovery insights</span>
+        <br>
+        <a href="#" class="project-link">View on GitHub →</a>
+      </div>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="project-card reveal">
+      <div class="project-visual v2">
+        🌍
+        <span class="project-visual-label">Shiny · Python · KPI</span>
+      </div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag">Shiny for Python</span>
+          <span class="tag">KPI Dashboard</span>
+          <span class="tag">Data Viz</span>
+        </div>
+        <div class="project-title">Global Health Statistics Dashboard — Interactive KPI Platform</div>
+        <p class="project-desc">
+          Built an interactive dashboard visualising 20+ global health KPIs using Shiny for Python, with filtering and drill-down functionality. Demonstrated end-to-end ownership from data ingestion and statistical analysis to stakeholder-ready reporting.
+        </p>
+        <span class="project-metric">📈 20+ KPIs · Full end-to-end delivery</span>
+        <br>
+        <a href="#" class="project-link">View on GitHub →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="placeholder-hint reveal" style="margin-top:1.5rem;">
+    📝 <strong>Published researcher:</strong> "Hybrid Approaches for Multiclass Cancer Identification" — ICONAT 2024 International Conference. Add your GitHub links to the cards above when your repos are ready!
+  </div>
+
+</section>
+
+<!-- EXPERIENCE -->
+<div id="experience" style="background: var(--warm-white); border-top:1px solid var(--border); padding: 6rem 0;">
+  <div style="max-width:1200px; margin:0 auto; padding:0 4rem;">
+
+    <div class="projects-header reveal">
+      <div>
+        <div class="section-label">Work Experience</div>
+        <h2 class="section-title">Where I've <em>worked</em></h2>
+        <p class="section-sub">Real-world roles where I delivered measurable business impact through data.</p>
+      </div>
+    </div>
+
+    <!-- Experience 1 — Vijeta Sports -->
+    <div class="reveal" style="margin-bottom: 2rem;">
+      <div style="background: var(--card-bg); border:1px solid var(--border); border-radius:20px; overflow:hidden; transition: transform 0.3s, box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 20px 50px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+
+        <!-- Top bar -->
+        <div style="background: linear-gradient(135deg, #FDF6E3, #F0E0B0); padding:1.8rem 2rem; display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <div style="width:52px;height:52px;background:var(--card-bg);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;border:1px solid var(--border);flex-shrink:0;">💼</div>
+            <div>
+              <div style="font-family:'Lora',serif;font-size:1.2rem;font-weight:700;color:var(--ink);">Sales & Marketing Analyst</div>
+              <div style="font-size:0.9rem;color:var(--terra);font-weight:500;">Vijeta Sports, India</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.4rem;">
+            <span style="background:var(--card-bg);color:var(--muted);font-size:0.78rem;font-weight:500;padding:0.3rem 0.9rem;border-radius:2rem;border:1px solid var(--border);font-family:'DM Mono',monospace;">Feb 2023 – Dec 2023</span>
+            <span style="background:#FDEEE5;color:var(--terra);font-size:0.75rem;font-weight:500;padding:0.25rem 0.8rem;border-radius:2rem;border:1px solid #F5CDB8;">Part-Time</span>
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div style="padding:1.8rem 2rem;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.7rem; margin-bottom:1.5rem;">
+            <div style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.9rem;color:var(--ink-mid);line-height:1.5;">
+              <span style="color:var(--terra);font-weight:700;flex-shrink:0;">→</span>
+              Automated monthly financial reporting with Python — cut production time from 24hrs to under 2hrs (90% gain)
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.9rem;color:var(--ink-mid);line-height:1.5;">
+              <span style="color:var(--terra);font-weight:700;flex-shrink:0;">→</span>
+              Consolidated 4 operational datasets into an Advanced Excel BI dashboard (pivot tables, VBA macros) for real-time KPI tracking
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.9rem;color:var(--ink-mid);line-height:1.5;">
+              <span style="color:var(--terra);font-weight:700;flex-shrink:0;">→</span>
+              Identified 3 high-value customer segments through behavioural and pricing analysis of 12+ months of transaction data
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.9rem;color:var(--ink-mid);line-height:1.5;">
+              <span style="color:var(--terra);font-weight:700;flex-shrink:0;">→</span>
+              Performed multi-table SQL analysis linking customer behaviour, product demand, and seasonal trends across 5 retail events
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+            <span class="tag">Python</span>
+            <span class="tag">SQL</span>
+            <span class="tag">Excel VBA</span>
+            <span class="tag">Power BI</span>
+            <span class="tag">Financial Reporting</span>
+            <span class="tag">Customer Segmentation</span>
+          </div>
+        </div>
+
+        <!-- Metric strip -->
+        <div style="background:var(--ink);padding:1rem 2rem;display:flex;gap:2.5rem;flex-wrap:wrap;">
+          <div style="text-align:center;">
+            <div style="font-family:'Lora',serif;font-size:1.4rem;font-weight:700;color:var(--ochre);">90%</div>
+            <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Time saved</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'Lora',serif;font-size:1.4rem;font-weight:700;color:var(--ochre);">4</div>
+            <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Datasets consolidated</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'Lora',serif;font-size:1.4rem;font-weight:700;color:var(--ochre);">3</div>
+            <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Customer segments</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'Lora',serif;font-size:1.4rem;font-weight:700;color:var(--ochre);">5</div>
+            <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Retail events analysed</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Experience 2 — KLE Hospital -->
+    <div class="reveal">
+      <div style="background: var(--card-bg); border:1px solid var(--border); border-radius:20px; overflow:hidden; transition: transform 0.3s, box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 20px 50px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+
+        <!-- Top bar -->
+        <div style="background: linear-gradient(135deg, #EEF0F8, #D0D5EE); padding:1.8rem 2rem; display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <div style="width:52px;height:52px;background:var(--card-bg);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;border:1px solid var(--border);flex-shrink:0;">🧬</div>
+            <div>
+              <div style="font-family:'Lora',serif;font-size:1.2rem;font-weight:700;color:var(--ink);">Machine Learning Intern</div>
+              <div style="font-size:0.9rem;color:var(--terra);font-weight:500;">KLE's Dr. Prabhakar Kore Hospital, India</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.4rem;">
+            <span style="background:var(--card-bg);color:var(--muted);font-size:0.78rem;font-weight:500;padding:0.3rem 0.9rem;border-radius:2rem;border:1px solid var(--border);font-family:'DM Mono',monospace;">Jan 2024 – Jun 2024</span>
+            <span style="background:#E6F2E8;color:var(--forest);font-size:0.75rem;font-weight:500;padding:0.25rem 0.8rem;border-radius:2rem;border:1px solid #C5DEC9;">Internship</span>
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div style="padding:1.8rem 2rem;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.7rem; margin-bottom:1.5rem;">
+            <div style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.9rem;color:var(--ink-mid);line-height:1.5;">
+              <span style="color:var(--terra);font-weight:700;flex-shrink:0;">→</span>
+              Improved dataset processing efficiency by 22% by optimising Python feature-extraction scripts
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.9rem;color:var(--ink-mid);line-height:1.5;">
+              <span style="color:var(--terra);font-weight:700;flex-shrink:0;">→</span>
+              Built a reproducible preprocessing pipeline adopted across 3 clinical research projects, improving data quality standards
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.9rem;color:var(--ink-mid);line-height:1.5;">
+              <span style="color:var(--terra);font-weight:700;flex-shrink:0;">→</span>
+              Produced executive-level analytical summaries translating statistical outputs into insights for non-technical stakeholders
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.9rem;color:var(--ink-mid);line-height:1.5;">
+              <span style="color:var(--terra);font-weight:700;flex-shrink:0;">→</span>
+              Applied AI and ML techniques to large structured healthcare datasets to enhance analytical workflows
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+            <span class="tag">Python</span>
+            <span class="tag">Machine Learning</span>
+            <span class="tag">Feature Engineering</span>
+            <span class="tag">Healthcare AI</span>
+            <span class="tag">Data Pipelines</span>
+            <span class="tag">Statistical Analysis</span>
+          </div>
+        </div>
+
+        <!-- Metric strip -->
+        <div style="background:var(--ink);padding:1rem 2rem;display:flex;gap:2.5rem;flex-wrap:wrap;">
+          <div style="text-align:center;">
+            <div style="font-family:'Lora',serif;font-size:1.4rem;font-weight:700;color:var(--terra-lt);">22%</div>
+            <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Efficiency gain</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'Lora',serif;font-size:1.4rem;font-weight:700;color:var(--terra-lt);">3</div>
+            <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Clinical projects</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'Lora',serif;font-size:1.4rem;font-weight:700;color:var(--terra-lt);">6mo</div>
+            <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Duration</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- EDUCATION & EXTRAS -->
+<div style="background: var(--warm-white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 5rem 0;">
+  <div style="max-width:1200px; margin:0 auto; padding:0 4rem;">
+    <div class="section-label reveal">Background</div>
+    <h2 class="section-title reveal">Education & <em>achievements</em></h2>
+
+    <div style="display:grid; grid-template-columns: 1.3fr 1fr; gap: 4rem; margin-top: 2.5rem;">
+
+      <!-- Education -->
+      <div class="reveal">
+        <div style="display:flex; flex-direction:column; gap:1.2rem;">
+
+          <div style="background:var(--card-bg); border:1px solid var(--border); border-radius:16px; padding:1.5rem; display:flex; gap:1.2rem; align-items:flex-start;">
+            <div style="width:44px;height:44px;background:#FDEEE5;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">🎓</div>
+            <div>
+              <div style="font-size:0.75rem;color:var(--muted);font-weight:500;letter-spacing:0.05em;">2024 – 2025</div>
+              <div style="font-family:'Lora',serif;font-size:1rem;font-weight:600;color:var(--ink);margin:0.2rem 0;">MSc Data Analytics</div>
+              <div style="font-size:0.88rem;color:var(--terra);font-weight:500;">Dundalk Institute of Technology, Ireland</div>
+              <div style="font-size:0.82rem;color:var(--muted);margin-top:0.4rem;">Financial Analytics · Statistical Modelling · Business Intelligence · Machine Learning · Big Data</div>
+            </div>
+          </div>
+
+          <div style="background:var(--card-bg); border:1px solid var(--border); border-radius:16px; padding:1.5rem; display:flex; gap:1.2rem; align-items:flex-start;">
+            <div style="width:44px;height:44px;background:#E6F2E8;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">📜</div>
+            <div>
+              <div style="font-size:0.75rem;color:var(--muted);font-weight:500;letter-spacing:0.05em;">2025</div>
+              <div style="font-family:'Lora',serif;font-size:1rem;font-weight:600;color:var(--ink);margin:0.2rem 0;">Finance for Non-Financial Managers</div>
+              <div style="font-size:0.88rem;color:var(--terra);font-weight:500;">University of Galway, Ireland</div>
+              <div style="font-size:0.82rem;color:var(--muted);margin-top:0.4rem;">Professional Certificate</div>
+            </div>
+          </div>
+
+          <div style="background:var(--card-bg); border:1px solid var(--border); border-radius:16px; padding:1.5rem; display:flex; gap:1.2rem; align-items:flex-start;">
+            <div style="width:44px;height:44px;background:#EEF0F8;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">⚡</div>
+            <div>
+              <div style="font-size:0.75rem;color:var(--muted);font-weight:500;letter-spacing:0.05em;">2020 – 2024</div>
+              <div style="font-family:'Lora',serif;font-size:1rem;font-weight:600;color:var(--ink);margin:0.2rem 0;">BE Electronics & Communication Engineering</div>
+              <div style="font-size:0.88rem;color:var(--terra);font-weight:500;">KLS Gogte Institute of Technology, India</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Achievements -->
+      <div class="reveal" style="display:flex; flex-direction:column; gap:1.2rem;">
+
+        <div style="background:var(--ink); border-radius:16px; padding:1.5rem; color:var(--cream);">
+          <div style="font-size:1.5rem; margin-bottom:0.6rem;">📰</div>
+          <div style="font-family:'Lora',serif;font-size:1rem;font-weight:600;margin-bottom:0.4rem;">Published Researcher</div>
+          <div style="font-size:0.88rem;color:rgba(255,255,255,0.6);line-height:1.6;">"Hybrid Approaches for Multiclass Cancer Identification" — ICONAT 2024 International Conference</div>
+        </div>
+
+        <div style="background:var(--card-bg); border:1px solid var(--border); border-radius:16px; padding:1.5rem;">
+          <div style="font-size:1.5rem; margin-bottom:0.6rem;">🌟</div>
+          <div style="font-family:'Lora',serif;font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:0.4rem;">Club Service Director</div>
+          <div style="font-size:0.88rem;color:var(--muted);line-height:1.6;">2021–2023 · Led cross-functional teams and community initiatives</div>
+        </div>
+
+        <div style="background:var(--card-bg); border:1px solid var(--border); border-radius:16px; padding:1.5rem;">
+          <div style="font-size:1.5rem; margin-bottom:0.6rem;">🌍</div>
+          <div style="font-family:'Lora',serif;font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:0.4rem;">Languages</div>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem;">
+            <span style="background:var(--sand);color:var(--ink-mid);font-size:0.8rem;font-weight:500;padding:0.3rem 0.8rem;border-radius:2rem;border:1px solid var(--border);">English</span>
+            <span style="background:#FDEEE5;color:var(--terra);font-size:0.8rem;font-weight:500;padding:0.3rem 0.8rem;border-radius:2rem;border:1px solid #F5CDB8;">French (B1)</span>
+            <span style="background:#E6F2E8;color:var(--forest);font-size:0.8rem;font-weight:500;padding:0.3rem 0.8rem;border-radius:2rem;border:1px solid #C5DEC9;">Hindi</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div id="skills">
+  <div class="skills-inner">
+    <div class="section-label reveal">Skills & Tools</div>
+    <h2 class="section-title reveal">My <em>toolkit</em></h2>
+
+    <div class="skills-grid">
+      <div class="skill-category reveal">
+        <div class="skill-cat-icon">🐍</div>
+        <div class="skill-cat-title">Programming</div>
+        <ul class="skill-list">
+          <li>Python (Pandas, NumPy)</li>
+          <li>SQL & database querying</li>
+          <li>Advanced Excel (VBA)</li>
+          <li>Excel Macros</li>
+          <li>R (statistical analysis)</li>
+        </ul>
+      </div>
+      <div class="skill-category reveal">
+        <div class="skill-cat-icon">📊</div>
+        <div class="skill-cat-title">Visualisation</div>
+        <ul class="skill-list">
+          <li>Tableau</li>
+          <li>Power BI</li>
+          <li>Executive KPI dashboards</li>
+          <li>Matplotlib / Seaborn</li>
+          <li>Google Looker Studio</li>
+        </ul>
+      </div>
+      <div class="skill-category reveal">
+        <div class="skill-cat-icon">⚙️</div>
+        <div class="skill-cat-title">Analytics & AI</div>
+        <ul class="skill-list">
+          <li>Reporting automation</li>
+          <li>Pipeline optimisation</li>
+          <li>AI & machine learning tools</li>
+          <li>Predictive modelling</li>
+          <li>Cost & financial analysis</li>
+        </ul>
+      </div>
+      <div class="skill-category reveal">
+        <div class="skill-cat-icon">🧠</div>
+        <div class="skill-cat-title">Soft Skills</div>
+        <ul class="skill-list">
+          <li>Stakeholder communication</li>
+          <li>Data storytelling</li>
+          <li>Non-technical translation</li>
+          <li>Strategic thinking</li>
+          <li>Fast-paced environments</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="skill-bar-wrap" style="margin-top:2.5rem;">
+      <div class="skill-bar">
+        <div class="skill-bar-top"><span>Python / Data Analysis</span><span>88%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%"></div></div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-bar-top"><span>SQL</span><span>90%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-bar-top"><span>Advanced Excel (VBA & Macros)</span><span>92%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:92%"></div></div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-bar-top"><span>Tableau</span><span>85%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-bar-top"><span>Power BI</span><span>82%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:82%"></div></div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-bar-top"><span>AI & Machine Learning Tools</span><span>75%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" style="max-width:100%; background: var(--warm-white); border-top:1px solid var(--border); padding: 6rem 0;">
+  <div style="max-width:1200px; margin:0 auto; padding:0 4rem; display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center;">
+
+    <div class="reveal">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Let's <em>connect</em></h2>
+      <p class="contact-body">
+        I'm actively exploring data analytics roles in Ireland where I can make a measurable impact. Whether you have an opportunity, want to collaborate, or just want to talk data — my inbox is always open.
+      </p>
+
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/priyanka-da" class="contact-link" target="_blank">
+          <div class="contact-icon ci-li">💼</div>
+          <div>
+            <div style="font-size:0.75rem;color:var(--muted);margin-bottom:2px;">LinkedIn</div>
+            linkedin.com/in/priyanka-da
+          </div>
+          <span style="margin-left:auto;color:var(--muted);">→</span>
+        </a>
+        <a href="/cdn-cgi/l/email-protection#0272706b7b63707263766b6e333a323b42656f636b6e2c616d6f" class="contact-link">
+          <div class="contact-icon ci-em">✉️</div>
+          <div>
+            <div style="font-size:0.75rem;color:var(--muted);margin-bottom:2px;">Email</div>
+            <span class="__cf_email__" data-cfemail="cbbbb9a2b2aab9bbaabfa2a7faf3fbf28baca6aaa2a7e5a8a4a6">[email&#160;protected]</span>
+          </div>
+          <span style="margin-left:auto;color:var(--muted);">→</span>
+        </a>
+        <a href="#" class="contact-link">
+          <div class="contact-icon ci-cv">📄</div>
+          <div>
+            <div style="font-size:0.75rem;color:var(--muted);margin-bottom:2px;">CV / Résumé</div>
+            Download PDF
+          </div>
+          <span style="margin-left:auto;color:var(--muted);">↓</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-form-wrap reveal">
+      <div class="form-title">Send a message 👋</div>
+      <div class="form-group">
+        <label>Your name</label>
+        <input type="text" placeholder="Jane Smith">
+      </div>
+      <div class="form-group">
+        <label>Your email</label>
+        <input type="email" placeholder="jane@company.com">
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Hi, I came across your portfolio and wanted to reach out about..."></textarea>
+      </div>
+      <button class="form-submit">Send Message →</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Built with ☕ in Ireland · <span>Priyanka Patil</span> · MSc Data Analytics · DkIT</p>
+</footer>
+
+<script>
+  // Navbar scroll effect
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Reveal on scroll — with hard fallback after 800ms
+  const reveals = document.querySelectorAll('.reveal');
+
+  function showAll() {
+    reveals.forEach(el => el.classList.add('visible'));
+  }
+
+  const fallbackTimer = setTimeout(showAll, 800);
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          clearTimeout(fallbackTimer);
+          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  } else {
+    showAll();
+  }
+
+  // Animate skill bars when they come into view
+  const bars = document.querySelectorAll('.skill-bar-fill');
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animated');
+        barObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  bars.forEach(bar => barObserver.observe(bar));
+
+  // Smooth nav highlight
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--terra)' : '';
+    });
+  });
+</script>
+</body>
+</html>
